@@ -32,4 +32,28 @@ public interface Calculadora extends Remote {
     
     public Numero tangente(Numero a)
         throws RemoteException, DivisaoPorZeroException;
+
+    public Numero valorAbsoluto(Numero a)
+        throws RemoteException;
+
+    public Numero teto(Numero a)
+        throws RemoteException;
+
+    public Numero piso(Numero a)
+        throws RemoteException;
+
+    public Numero arredondar(Numero a)
+        throws RemoteException;
+
+    public Numero maximo(Numero a, Numero b)
+        throws RemoteException;
+
+    public Numero minimo(Numero a, Numero b)
+        throws RemoteException;
+
+    public Numero raizCubica(Numero a)
+        throws RemoteException;
+
+    public Numero logNatural(Numero a)
+        throws RemoteException;
 }

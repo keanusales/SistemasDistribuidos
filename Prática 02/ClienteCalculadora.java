@@ -38,7 +38,15 @@ public class ClienteCalculadora {
                     System.out.print("8.) Sine.\n");
                     System.out.print("9.) Cosine.\n");
                     System.out.print("10.) Tangent.\n");
-                    System.out.print("11.) Exit.\n");
+                    System.out.print("11.) Absolute Value.\n");
+                    System.out.print("12.) Ceiling.\n");
+                    System.out.print("13.) Floor.\n");
+                    System.out.print("14.) Round.\n");
+                    System.out.print("15.) Maximum.\n");
+                    System.out.print("16.) Minimum.\n");
+                    System.out.print("17.) Cube Root.\n");
+                    System.out.print("18.) Natural Logarithm.\n");
+                    System.out.print("19.) Exit.\n");
                     System.out.print("\nEnter Your Menu Choice: ");
 
                     choice = input.nextInt();
@@ -153,6 +161,74 @@ public class ClienteCalculadora {
                         }
 
                         case 11 -> {
+                            Numero absNum, absTotal;
+                            System.out.println("Enter Your Number ");
+                            absNum = new NumeroImpl(input.nextInt());
+                            absTotal = calc.valorAbsoluto(absNum);
+                            System.out.println("The Absolute Value of Your Number is: " + absTotal.getValor() + "\n");
+                        }
+
+                        case 12 -> {
+                            Numero ceilNum, ceilTotal;
+                            System.out.println("Enter Your Number ");
+                            ceilNum = new NumeroImpl(input.nextInt());
+                            ceilTotal = calc.teto(ceilNum);
+                            System.out.println("The Ceiling of Your Number is: " + ceilTotal.getValor() + "\n");
+                        }
+
+                        case 13 -> {
+                            Numero floorNum, floorTotal;
+                            System.out.println("Enter Your Number ");
+                            floorNum = new NumeroImpl(input.nextInt());
+                            floorTotal = calc.piso(floorNum);
+                            System.out.println("The Floor of Your Number is: " + floorTotal.getValor() + "\n");
+                        }
+
+                        case 14 -> {
+                            Numero roundNum, roundTotal;
+                            System.out.println("Enter Your Number ");
+                            roundNum = new NumeroImpl(input.nextInt());
+                            roundTotal = calc.arredondar(roundNum);
+                            System.out.println("The Rounded Value of Your Number is: " + roundTotal.getValor() + "\n");
+                        }
+
+                        case 15 -> {
+                            Numero maxNum1, maxNum2, maxTotal;
+                            System.out.println("Enter The First Number ");
+                            maxNum1 = new NumeroImpl(input.nextInt());
+                            System.out.println("Enter The Second Number ");
+                            maxNum2 = new NumeroImpl(input.nextInt());
+                            maxTotal = calc.maximo(maxNum1, maxNum2);
+                            System.out.println("The Maximum Value is: " + maxTotal.getValor() + "\n");
+                        }
+
+                        case 16 -> {
+                            Numero minNum1, minNum2, minTotal;
+                            System.out.println("Enter The First Number ");
+                            minNum1 = new NumeroImpl(input.nextInt());
+                            System.out.println("Enter The Second Number ");
+                            minNum2 = new NumeroImpl(input.nextInt());
+                            minTotal = calc.minimo(minNum1, minNum2);
+                            System.out.println("The Minimum Value is: " + minTotal.getValor() + "\n");
+                        }
+
+                        case 17 -> {
+                            Numero cbrtNum, cbrtTotal;
+                            System.out.println("Enter Your Number ");
+                            cbrtNum = new NumeroImpl(input.nextInt());
+                            cbrtTotal = calc.raizCubica(cbrtNum);
+                            System.out.println("The Cube Root of Your Number is: " + cbrtTotal.getValor() + "\n");
+                        }
+
+                        case 18 -> {
+                            Numero lnNum, lnTotal;
+                            System.out.println("Enter Your Number ");
+                            lnNum = new NumeroImpl(input.nextInt());
+                            lnTotal = calc.logNatural(lnNum);
+                            System.out.println("The Natural Logarithm of Your Number is: " + lnTotal.getValor() + "\n");
+                        }
+
+                        case 19 -> {
                             System.out.println("Exiting Program...");
                             System.exit(0);
                         }

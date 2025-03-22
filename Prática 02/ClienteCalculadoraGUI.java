@@ -10,7 +10,6 @@ public class ClienteCalculadoraGUI extends JFrame {
 
     private Calculadora calc;
     private final JTextField num1Field, num2Field, resultField;
-    private final JComboBox<String> operationComboBox;
 
     public ClienteCalculadoraGUI(String ip, int porta) {
         try {
@@ -22,43 +21,39 @@ public class ClienteCalculadoraGUI extends JFrame {
         }
 
         setTitle("Calculadora RMI");
-        setSize(400, 300);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(6, 2));
+        setLayout(new GridLayout(6, 4));
 
         num1Field = new JTextField();
         num2Field = new JTextField();
         resultField = new JTextField();
         resultField.setEditable(false);
 
-        String[] operations = {"Soma", "Subtração", "Multiplicação", "Divisão", "Potência", "Raiz", "Logaritmo", "Seno", "Cosseno", "Tangente"};
-        operationComboBox = new JComboBox<>(operations);
-
-        JButton calculateButton = new JButton("Calcular");
-        calculateButton.addActionListener((ActionEvent e) -> {
-            calcular();
-        });
-
         add(new JLabel("Número 1:"));
         add(num1Field);
         add(new JLabel("Número 2:"));
         add(num2Field);
-        add(new JLabel("Operação:"));
-        add(operationComboBox);
         add(new JLabel("Resultado:"));
         add(resultField);
-        add(new JLabel());
-        add(calculateButton);
+
+        String[] operations = {"Soma", "Subtração", "Multiplicação", "Divisão", "Potência", "Raiz", "Logaritmo", "Seno", "Cosseno", "Tangente", "Valor Absoluto", "Teto", "Piso", "Arredondar", "Máximo", "Mínimo", "Raiz Cúbica", "Log Natural"};
+        for (String operation : operations) {
+            JButton button = new JButton(operation);
+            button.addActionListener((ActionEvent e) -> {
+                calcular(operation);
+            });
+            add(button);
+        }
     }
 
-    private void calcular() {
+    private void calcular(String operation) {
         try {
             double num1 = Double.parseDouble(num1Field.getText());
             double num2 = Double.parseDouble(num2Field.getText());
             Numero a = new NumeroImpl(num1);
             Numero b = new NumeroImpl(num2);
 
-            String operation = (String) operationComboBox.getSelectedItem();
             Numero result = null;
 
             switch (operation) {
@@ -93,6 +88,14 @@ public class ClienteCalculadoraGUI extends JFrame {
                 case "Seno" -> result = calc.seno(a);
                 case "Cosseno" -> result = calc.cosseno(a);
                 case "Tangente" -> result = calc.tangente(a);
+                case "Valor Absoluto" -> result = calc.valorAbsoluto(a);
+                case "Teto" -> result = calc.teto(a);
+                case "Piso" -> result = calc.piso(a);
+                case "Arredondar" -> result = calc.arredondar(a);
+                case "Máximo" -> result = calc.maximo(a, b);
+                case "Mínimo" -> result = calc.minimo(a, b);
+                case "Raiz Cúbica" -> result = calc.raizCubica(a);
+                case "Log Natural" -> result = calc.logNatural(a);
             }
 
             if (result != null) {
