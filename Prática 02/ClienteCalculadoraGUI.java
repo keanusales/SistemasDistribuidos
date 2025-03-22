@@ -11,10 +11,10 @@ public class ClienteCalculadoraGUI extends JFrame {
     private Calculadora calc;
     private final JTextField num1Field, num2Field, resultField;
 
-    public ClienteCalculadoraGUI(String ip, int porta) {
+    public ClienteCalculadoraGUI(String ip, int porta, String nomeServidor) {
         try {
             Registry registry = LocateRegistry.getRegistry(ip, porta);
-            calc = (Calculadora) registry.lookup("calculadora");
+            calc = (Calculadora) registry.lookup(nomeServidor);
         } catch (NotBoundException | RemoteException e) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar ao servidor: " + e.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -111,15 +111,16 @@ public class ClienteCalculadoraGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            JOptionPane.showMessageDialog(null, "Uso: ClienteCalculadoraGUI <IP> <Porta>", "Erro", JOptionPane.ERROR_MESSAGE);
+        if (args.length < 3) {
+            JOptionPane.showMessageDialog(null, "Uso: ClienteCalculadoraGUI <IP> <Porta> <NomeServidor>", "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
         String ip = args[0];
         int porta = Integer.parseInt(args[1]);
+        String nomeServidor = args[2];
 
         SwingUtilities.invokeLater(() -> {
-            ClienteCalculadoraGUI gui = new ClienteCalculadoraGUI(ip, porta);
+            ClienteCalculadoraGUI gui = new ClienteCalculadoraGUI(ip, porta, nomeServidor);
             gui.setVisible(true);
         });
     }

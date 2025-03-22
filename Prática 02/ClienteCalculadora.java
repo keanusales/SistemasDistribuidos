@@ -7,18 +7,19 @@ import java.util.Scanner;
 public class ClienteCalculadora {
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.err.println("Uso: ClienteCalculadora <IP> <Porta>");
+        if (args.length < 3) {
+            System.err.println("Uso: ClienteCalculadora <IP> <Porta> <NomeServidor>");
             System.exit(1);
         }
         String ip = args[0];
         int porta = Integer.parseInt(args[1]);
+        String nomeServidor = args[2];
 
         try {
             // Localiza o registry usando o endereço IP e a porta fornecidos
             Registry registry = LocateRegistry.getRegistry(ip, porta);
             // Consulta o registry e obtém o stub para o objeto remoto
-            Calculadora calc = (Calculadora) registry.lookup("calculadora");
+            Calculadora calc = (Calculadora) registry.lookup(nomeServidor);
             // A partir deste momento, chamadas à Calculadora podem ser
             // feitas como qualquer chamada a métodos
 
