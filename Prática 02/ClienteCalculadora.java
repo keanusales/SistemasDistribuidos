@@ -237,14 +237,6 @@ public class ClienteCalculadora {
                             System.out.println("This is not a valid Menu Option! Please Select Another");
                     }
                 }
-
-                try {
-                    calc.divide(new NumeroImpl(1), new NumeroImpl(0));
-                } catch (DivisaoPorZeroException e) {
-                    System.out.println(
-                            "Tentou dividir por zero! Esta é uma exceção remota.");
-                }
-
             }
 
         } catch (NotBoundException | RemoteException e) {
