@@ -17,7 +17,7 @@ public class ClienteCalculadoraGUI extends JFrame {
             Registry registry = LocateRegistry.getRegistry(ip, porta);
             calc = (Calculadora) registry.lookup("calculadora");
         } catch (NotBoundException | RemoteException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao conectar ao servidor: " + e.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar ao servidor: " + e.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
 
