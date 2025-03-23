@@ -16,14 +16,15 @@ public class ClienteCalculadoraGUI extends JFrame {
             Registry registry = LocateRegistry.getRegistry(ip, porta);
             calc = (Calculadora) registry.lookup(nomeServidor);
         } catch (NotBoundException | RemoteException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar ao servidor: " + e.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar ao servidor: " + e.toString(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
 
         setTitle("Calculadora RMI");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(6, 4));
+        setLayout(new GridLayout(7, 4)); // Ajustado para acomodar mais botões
 
         num1Field = new JTextField();
         num2Field = new JTextField();
@@ -37,7 +38,14 @@ public class ClienteCalculadoraGUI extends JFrame {
         add(new JLabel("Resultado:"));
         add(resultField);
 
-        String[] operations = {"Soma", "Subtração", "Multiplicação", "Divisão", "Potência", "Raiz", "Logaritmo", "Seno", "Cosseno", "Tangente", "Valor Absoluto", "Teto", "Piso", "Arredondar", "Máximo", "Mínimo", "Raiz Cúbica", "Log Natural"};
+        String[] operations = {
+            "Soma", "Subtração", "Multiplicação", "Divisão",
+            "Potência", "Raiz", "Logaritmo", "Seno", "Cosseno",
+            "Tangente", "Valor Absoluto", "Teto", "Piso",
+            "Arredondar", "Máximo", "Mínimo", "Raiz Cúbica",
+            "Log Natural", "Hipotenusa", "Fatorial"
+        };
+
         for (String operation : operations) {
             JButton button = new JButton(operation);
             button.addActionListener((ActionEvent e) -> {
@@ -60,31 +68,10 @@ public class ClienteCalculadoraGUI extends JFrame {
                 case "Soma" -> result = calc.soma(a, b);
                 case "Subtração" -> result = calc.subtrai(a, b);
                 case "Multiplicação" -> result = calc.multiplica(a, b);
-                case "Divisão" -> {
-                    try {
-                        result = calc.divide(a, b);
-                    } catch (DivisaoPorZeroException e) {
-                        JOptionPane.showMessageDialog(this, "Divisão por zero não é permitida.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
+                case "Divisão" -> result = calc.divide(a, b);
                 case "Potência" -> result = calc.potencia(a, b);
-                case "Raiz" -> {
-                    try {
-                        result = calc.raiz(a);
-                    } catch (DivisaoPorZeroException e) {
-                        JOptionPane.showMessageDialog(this, "Raiz de número negativo não é permitida.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
-                case "Logaritmo" -> {
-                    try {
-                        result = calc.log(a);
-                    } catch (DivisaoPorZeroException e) {
-                        JOptionPane.showMessageDialog(this, "Logaritmo de número não positivo não é permitido.", "Erro", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
+                case "Raiz" -> result = calc.raiz(a);
+                case "Logaritmo" -> result = calc.log(a);
                 case "Seno" -> result = calc.seno(a);
                 case "Cosseno" -> result = calc.cosseno(a);
                 case "Tangente" -> result = calc.tangente(a);
@@ -96,6 +83,8 @@ public class ClienteCalculadoraGUI extends JFrame {
                 case "Mínimo" -> result = calc.minimo(a, b);
                 case "Raiz Cúbica" -> result = calc.raizCubica(a);
                 case "Log Natural" -> result = calc.logNatural(a);
+                case "Hipotenusa" -> result = calc.hipotenusa(a, b);
+                case "Fatorial" -> result = calc.fatorial(a);
             }
 
             if (result != null) {
@@ -104,15 +93,18 @@ public class ClienteCalculadoraGUI extends JFrame {
                 resultField.setText("Erro");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, insira números válidos.",
+                "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (RemoteException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao comunicar com o servidor: " + e.toString(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro no servidor: " + e.toString(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
         if (args.length < 3) {
-            JOptionPane.showMessageDialog(null, "Uso: ClienteCalculadoraGUI <IP> <Porta> <NomeServidor>", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Uso: ClienteCalculadoraGUI <IP> <Porta> <NomeServidor>",
+                "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
         String ip = args[0];
